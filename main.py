@@ -11,33 +11,36 @@ def calculate_returns():
     starting_amount = float(sys.argv[2])  # Monto con el que se inicia la inversión, valor por defecto 200,036.51
     monthly_user_increase = float(sys.argv[3])
     special_deduction = float(sys.argv[4])
+    savings_bank = 0
 
     percentaje = 0.03
     end_of_year_bonus = 24000
 
-    cont_months = 0
-    general_cont = 0
+    cont_months = float(datetime.datetime.today().strftime('%m')) - 1
+    general_month_cont = 0
     yields = starting_amount * percentaje
 
     while yields < expected_total_amount:
         """ Deducciones especiales como rentas """
+        savings_bank += 6400
         if yields >= special_deduction:
             print("-> El rendimiento supera la deducción especial <-")
             starting_amount = starting_amount - special_deduction
 
-        starting_amount = starting_amount + yields + monthly_user_increase  # Se calcula el nuevo total obtenido
+        starting_amount += yields + monthly_user_increase  # Se calcula el nuevo total obtenido
         yields = starting_amount * percentaje
 
         # Año cumplido
         if cont_months == 12:
-            starting_amount = starting_amount + end_of_year_bonus
+            starting_amount = starting_amount + end_of_year_bonus + savings_bank
+            savings_bank = 0
             cont_months = 0
             print("Fin de año")
 
         cont_months = cont_months + 1
-        general_cont = general_cont + 1
-        print("-> Mes: " + str(general_cont) + " inversión total: " + str(starting_amount))
-    print(f"-> Años para alcanzar la meta de {expected_total_amount}: {general_cont / 12}<-")
+        general_month_cont = general_month_cont + 1
+        print(f"-> Mes: {general_month_cont} inversión total: {round(starting_amount, 2)})")
+    print(f"-> Años para alcanzar la meta de ${expected_total_amount}: {general_month_cont / 12}<-")
 
 
 def calculator():
