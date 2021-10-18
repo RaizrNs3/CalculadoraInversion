@@ -33,7 +33,7 @@ def calculate_returns():
             starting_amount = starting_amount - special_deduction
 
         starting_amount += yields + monthly_user_increase  # Se calcula el nuevo total obtenido
-        yields = starting_amount * percentaje
+        yields = round(starting_amount * percentaje, 2)
 
         # Año cumplido
         if cont_months == 12:
@@ -44,7 +44,7 @@ def calculate_returns():
 
         cont_months = cont_months + 1
         general_month_cont = general_month_cont + 1
-        print(f"-> Mes: {months_names.get(cont_months)} inversión total: {round(starting_amount, 2)})")
+        print(f"-> Mes: {months_names.get(cont_months)} inversión total: {round(starting_amount, 2)}, rendimiento generado: {round(yields, 2)}")
     print(f"-> Años para alcanzar la meta de ${expected_total_amount}: {general_month_cont / 12}<-")
 
 
