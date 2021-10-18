@@ -4,6 +4,8 @@ import datetime
 
 
 def calculate_returns():
+    months_names = {1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio", 7: "Julio", 8: "Agosto",
+                    9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre"}
     print('-> Inicio del cálculo de rendimientos <-')
     # Todo: validar las entradas pasadas por parámetro
     """ Valores obligatorios, el programa no debería funciona si no están presentes """
@@ -19,12 +21,15 @@ def calculate_returns():
     cont_months = float(datetime.datetime.today().strftime('%m')) - 1
     general_month_cont = 0
     yields = starting_amount * percentaje
+    flag_special_deduction = True
 
     while yields < expected_total_amount:
         """ Deducciones especiales como rentas """
         savings_bank += 6400
-        if yields >= special_deduction:
-            print("-> El rendimiento supera la deducción especial <-")
+        if yields >= special_deduction != 0:
+            if flag_special_deduction:
+                print("->*** El rendimiento supera la deducción especial ***<-")
+                flag_special_deduction = False
             starting_amount = starting_amount - special_deduction
 
         starting_amount += yields + monthly_user_increase  # Se calcula el nuevo total obtenido
@@ -39,12 +44,8 @@ def calculate_returns():
 
         cont_months = cont_months + 1
         general_month_cont = general_month_cont + 1
-        print(f"-> Mes: {general_month_cont} inversión total: {round(starting_amount, 2)})")
+        print(f"-> Mes: {months_names.get(cont_months)} inversión total: {round(starting_amount, 2)})")
     print(f"-> Años para alcanzar la meta de ${expected_total_amount}: {general_month_cont / 12}<-")
-
-
-def calculator():
-    print("-> Inicio de cálculo <-")
 
 
 if __name__ == '__main__':
